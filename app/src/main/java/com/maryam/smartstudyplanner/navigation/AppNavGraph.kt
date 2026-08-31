@@ -13,6 +13,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.maryam.smartstudyplanner.ui.subjects.SubjectDetailsScreen
 import com.maryam.smartstudyplanner.ui.subjects.SubjectsScreen
+import com.maryam.smartstudyplanner.ui.tasks.AddEditTaskScreen
+import com.maryam.smartstudyplanner.ui.tasks.TasksScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -32,7 +34,10 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
             )
         }
         composable(Screen.Tasks.route) {
-            PlaceholderScreen("Tasks — coming in Phase 4")
+            TasksScreen(
+                onAddTaskClick = { navController.navigate(Screen.AddEditTask.createRoute()) },
+                onTaskClick = { taskId -> navController.navigate(Screen.AddEditTask.createRoute(taskId)) }
+            )
         }
         composable(Screen.Calendar.route) {
             PlaceholderScreen("Calendar — coming in Phase 8")
@@ -47,6 +52,17 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
             )
         ) {
             SubjectDetailsScreen(onNavigateBack = { navController.popBackStack() })
+        }
+        composable(
+            route = Screen.AddEditTask.route,
+            arguments = listOf(
+                navArgument(Screen.AddEditTask.ARG_TASK_ID) {
+                    type = NavType.LongType
+                    defaultValue = -1L
+                }
+            )
+        ) {
+            AddEditTaskScreen(onNavigateBack = { navController.popBackStack() })
         }
     }
 }
