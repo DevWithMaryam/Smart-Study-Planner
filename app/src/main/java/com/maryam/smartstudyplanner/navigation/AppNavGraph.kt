@@ -1,16 +1,13 @@
 package com.maryam.smartstudyplanner.navigation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.maryam.smartstudyplanner.ui.home.HomeScreen
 import com.maryam.smartstudyplanner.ui.subjects.SubjectDetailsScreen
 import com.maryam.smartstudyplanner.ui.subjects.SubjectsScreen
 import com.maryam.smartstudyplanner.ui.tasks.AddEditTaskScreen
@@ -21,10 +18,13 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
     NavHost(
         navController = navController,
         startDestination = Screen.Home.route,
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
     ) {
         composable(Screen.Home.route) {
-            PlaceholderScreen("Home — coming in Phase 5")
+            HomeScreen(
+                onAddTaskClick = { navController.navigate(Screen.AddEditTask.createRoute()) },
+                onTaskClick = { taskId -> navController.navigate(Screen.AddEditTask.createRoute(taskId)) }
+            )
         }
         composable(Screen.Subjects.route) {
             SubjectsScreen(
@@ -40,10 +40,10 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
             )
         }
         composable(Screen.Calendar.route) {
-            PlaceholderScreen("Calendar — coming in Phase 8")
+            androidx.compose.material3.Text("Calendar — coming in Phase 8")
         }
         composable(Screen.Progress.route) {
-            PlaceholderScreen("Progress — coming in Phase 10")
+            androidx.compose.material3.Text("Progress — coming in Phase 10")
         }
         composable(
             route = Screen.SubjectDetails.route,
@@ -64,12 +64,5 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
         ) {
             AddEditTaskScreen(onNavigateBack = { navController.popBackStack() })
         }
-    }
-}
-
-@Composable
-private fun PlaceholderScreen(text: String) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text)
     }
 }
