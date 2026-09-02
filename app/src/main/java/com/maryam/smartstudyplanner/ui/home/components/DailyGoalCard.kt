@@ -15,7 +15,11 @@ import androidx.compose.ui.unit.dp
 import com.maryam.smartstudyplanner.data.local.entity.StudyGoalEntity
 
 @Composable
-fun DailyGoalCard(studyMinutes: Long, activeGoal: StudyGoalEntity?) {
+fun DailyGoalCard(
+    studyMinutes: Long,
+    activeGoal: StudyGoalEntity?,
+    goalProgressMinutes: Long
+) {
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
             Text("Today's Study Time", style = MaterialTheme.typography.titleMedium)
@@ -30,10 +34,10 @@ fun DailyGoalCard(studyMinutes: Long, activeGoal: StudyGoalEntity?) {
                 val progress = if (activeGoal.targetMinutes == 0L) {
                     0f
                 } else {
-                    (studyMinutes.toFloat() / activeGoal.targetMinutes.toFloat()).coerceIn(0f, 1f)
+                    (goalProgressMinutes.toFloat() / activeGoal.targetMinutes.toFloat()).coerceIn(0f, 1f)
                 }
                 Text(
-                    text = "Goal: ${activeGoal.title} — $studyMinutes/${activeGoal.targetMinutes} min",
+                    text = "Goal: ${activeGoal.title} — $goalProgressMinutes/${activeGoal.targetMinutes} min",
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Spacer(modifier = Modifier.height(4.dp))

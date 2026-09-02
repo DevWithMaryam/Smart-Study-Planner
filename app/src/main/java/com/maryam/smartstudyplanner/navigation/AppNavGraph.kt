@@ -8,6 +8,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.maryam.smartstudyplanner.ui.calendar.CalendarScreen
+import com.maryam.smartstudyplanner.ui.goals.GoalsScreen
 import com.maryam.smartstudyplanner.ui.home.HomeScreen
 import com.maryam.smartstudyplanner.ui.study.SessionHistoryScreen
 import com.maryam.smartstudyplanner.ui.study.StudySessionScreen
@@ -27,7 +29,8 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
             HomeScreen(
                 onAddTaskClick = { navController.navigate(Screen.AddEditTask.createRoute()) },
                 onTaskClick = { taskId -> navController.navigate(Screen.AddEditTask.createRoute(taskId)) },
-                onStartSessionClick = { navController.navigate(Screen.StudySession.route) }
+                onStartSessionClick = { navController.navigate(Screen.StudySession.route) },
+                onGoalsClick = { navController.navigate(Screen.Goals.route) }
             )
         }
         composable(Screen.Subjects.route) {
@@ -44,7 +47,9 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
             )
         }
         composable(Screen.Calendar.route) {
-            Text("Calendar — coming in Phase 8")
+            CalendarScreen(
+                onTaskClick = { taskId -> navController.navigate(Screen.AddEditTask.createRoute(taskId)) }
+            )
         }
         composable(Screen.Progress.route) {
             Text("Progress — coming in Phase 10")
@@ -76,6 +81,9 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
         }
         composable(Screen.SessionHistory.route) {
             SessionHistoryScreen(onNavigateBack = { navController.popBackStack() })
+        }
+        composable(Screen.Goals.route) {
+            GoalsScreen(onNavigateBack = { navController.popBackStack() })
         }
     }
 }

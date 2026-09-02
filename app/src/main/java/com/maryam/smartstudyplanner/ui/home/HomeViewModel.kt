@@ -26,6 +26,7 @@ data class HomeUiState(
     val subjectNames: Map<Long, String> = emptyMap(),
     val todayStudyMinutes: Long = 0,
     val activeGoal: StudyGoalEntity? = null,
+    val activeGoalProgressMinutes: Long = 0,
     val completedTodayCount: Int = 0,
     val totalTodayCount: Int = 0
 )
