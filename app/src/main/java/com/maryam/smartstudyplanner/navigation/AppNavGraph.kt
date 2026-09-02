@@ -1,5 +1,6 @@
 package com.maryam.smartstudyplanner.navigation
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -8,6 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.maryam.smartstudyplanner.ui.home.HomeScreen
+import com.maryam.smartstudyplanner.ui.study.SessionHistoryScreen
+import com.maryam.smartstudyplanner.ui.study.StudySessionScreen
 import com.maryam.smartstudyplanner.ui.subjects.SubjectDetailsScreen
 import com.maryam.smartstudyplanner.ui.subjects.SubjectsScreen
 import com.maryam.smartstudyplanner.ui.tasks.AddEditTaskScreen
@@ -23,7 +26,8 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
         composable(Screen.Home.route) {
             HomeScreen(
                 onAddTaskClick = { navController.navigate(Screen.AddEditTask.createRoute()) },
-                onTaskClick = { taskId -> navController.navigate(Screen.AddEditTask.createRoute(taskId)) }
+                onTaskClick = { taskId -> navController.navigate(Screen.AddEditTask.createRoute(taskId)) },
+                onStartSessionClick = { navController.navigate(Screen.StudySession.route) }
             )
         }
         composable(Screen.Subjects.route) {
@@ -40,10 +44,10 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
             )
         }
         composable(Screen.Calendar.route) {
-            androidx.compose.material3.Text("Calendar — coming in Phase 8")
+            Text("Calendar — coming in Phase 8")
         }
         composable(Screen.Progress.route) {
-            androidx.compose.material3.Text("Progress — coming in Phase 10")
+            Text("Progress — coming in Phase 10")
         }
         composable(
             route = Screen.SubjectDetails.route,
@@ -63,6 +67,15 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
             )
         ) {
             AddEditTaskScreen(onNavigateBack = { navController.popBackStack() })
+        }
+        composable(Screen.StudySession.route) {
+            StudySessionScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onHistoryClick = { navController.navigate(Screen.SessionHistory.route) }
+            )
+        }
+        composable(Screen.SessionHistory.route) {
+            SessionHistoryScreen(onNavigateBack = { navController.popBackStack() })
         }
     }
 }

@@ -16,4 +16,7 @@ sealed class Screen(val route: String) {
         const val ARG_TASK_ID = "taskId"
         fun createRoute(taskId: Long? = null) = "add_edit_task?taskId=${taskId ?: -1L}"
     }
+
+    data object StudySession : Screen("study_session")
+    data object SessionHistory : Screen("session_history")
 }

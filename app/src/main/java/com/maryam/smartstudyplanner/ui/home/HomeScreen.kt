@@ -9,15 +9,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -25,22 +21,19 @@ import com.maryam.smartstudyplanner.ui.home.components.DailyGoalCard
 import com.maryam.smartstudyplanner.ui.home.components.HomeTaskRow
 import com.maryam.smartstudyplanner.ui.home.components.QuickActionsRow
 import com.maryam.smartstudyplanner.ui.home.components.TodayProgressCard
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     onAddTaskClick: () -> Unit,
     onTaskClick: (Long) -> Unit,
+    onStartSessionClick: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = remember { SnackbarHostState() }
-    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("${uiState.greeting}!") }) },
-        snackbarHost = { SnackbarHost(snackbarHostState) }
+        topBar = { TopAppBar(title = { Text("${uiState.greeting}!") }) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -52,11 +45,7 @@ fun HomeScreen(
         ) {
             QuickActionsRow(
                 onAddTaskClick = onAddTaskClick,
-                onStartSessionClick = {
-                    coroutineScope.launch {
-                        snackbarHostState.showSnackbar("Study sessions are coming in the next phase")
-                    }
-                }
+                onStartSessionClick = onStartSessionClick
             )
 
             TodayProgressCard(
