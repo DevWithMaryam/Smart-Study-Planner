@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.maryam.smartstudyplanner.ui.calendar.CalendarScreen
 import com.maryam.smartstudyplanner.ui.goals.GoalsScreen
 import com.maryam.smartstudyplanner.ui.home.HomeScreen
+import com.maryam.smartstudyplanner.ui.progress.ProgressScreen
 import com.maryam.smartstudyplanner.ui.study.SessionHistoryScreen
 import com.maryam.smartstudyplanner.ui.study.StudySessionScreen
 import com.maryam.smartstudyplanner.ui.subjects.SubjectDetailsScreen
@@ -52,7 +53,7 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
             )
         }
         composable(Screen.Progress.route) {
-            Text("Progress — coming in Phase 10")
+            ProgressScreen()
         }
         composable(
             route = Screen.SubjectDetails.route,

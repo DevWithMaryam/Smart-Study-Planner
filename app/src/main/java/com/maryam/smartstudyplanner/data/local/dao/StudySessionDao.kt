@@ -32,4 +32,7 @@ interface StudySessionDao {
 
     @Query("SELECT COALESCE(SUM(durationMinutes), 0) FROM study_sessions WHERE date BETWEEN :startOfDay AND :endOfDay")
     fun getTotalDurationForDateRange(startOfDay: Long, endOfDay: Long): Flow<Long>
+
+    @Query("SELECT subjectId, SUM(durationMinutes) as totalMinutes FROM study_sessions GROUP BY subjectId")
+    fun getSubjectWiseDuration(): Flow<List<SubjectDuration>>
 }

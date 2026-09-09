@@ -1,6 +1,7 @@
 package com.maryam.smartstudyplanner.data.repository
 
 import com.maryam.smartstudyplanner.data.local.dao.StudySessionDao
+import com.maryam.smartstudyplanner.data.local.dao.SubjectDuration
 import com.maryam.smartstudyplanner.data.local.entity.StudySessionEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -18,6 +19,9 @@ class StudySessionRepository @Inject constructor(
 
     fun getTotalDurationForDateRange(startOfDay: Long, endOfDay: Long): Flow<Long> =
         studySessionDao.getTotalDurationForDateRange(startOfDay, endOfDay)
+
+    fun getSubjectWiseDuration(): Flow<List<SubjectDuration>> =
+        studySessionDao.getSubjectWiseDuration()
 
     suspend fun addSession(session: StudySessionEntity): Long =
         studySessionDao.insertSession(session)

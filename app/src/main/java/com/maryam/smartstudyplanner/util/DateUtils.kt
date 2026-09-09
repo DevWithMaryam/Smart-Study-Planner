@@ -66,7 +66,6 @@ fun daysInMonth(millis: Long): Int {
     return calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
 }
 
-// Grid mein pehle din se pehle kitne khaali boxes chahiye (Sunday = 0 offset)
 fun firstDayOffset(millis: Long): Int {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = startOfMonth(millis)
@@ -86,3 +85,14 @@ fun monthYearLabel(millis: Long): String =
 
 fun dayHeaderLabel(millis: Long): String =
     SimpleDateFormat("EEEE, dd MMM", Locale.getDefault()).format(millis)
+
+// Aaj se "daysAgo" din pehle ka start-of-day timestamp deta hai.
+// Weekly chart ke liye "pichle 7 din" ki range banane mein use hota hai.
+fun startOfDaysAgo(daysAgo: Int): Long {
+    val calendar = Calendar.getInstance()
+    calendar.add(Calendar.DAY_OF_YEAR, -daysAgo)
+    return startOfDay(calendar.timeInMillis)
+}
+
+fun shortDayLabel(millis: Long): String =
+    SimpleDateFormat("EEE", Locale.getDefault()).format(millis)
