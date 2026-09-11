@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FloatingActionButton
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.maryam.smartstudyplanner.data.local.entity.TaskEntity
 import com.maryam.smartstudyplanner.ui.components.ConfirmDeleteDialog
+import com.maryam.smartstudyplanner.ui.components.EmptyState
 import com.maryam.smartstudyplanner.ui.tasks.components.TaskListItem
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -80,12 +82,15 @@ fun TasksScreen(
             }
 
             if (tasks.isEmpty()) {
-                Box(
-                    modifier = Modifier.fillMaxSize().padding(32.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("No tasks found.", textAlign = TextAlign.Center)
-                }
+                EmptyState(
+                    icon = Icons.Default.CheckCircle,
+                    title = "No tasks found",
+                    subtitle = if (searchQuery.isNotBlank()) {
+                        "Try a different search or filter."
+                    } else {
+                        "Tap + to add your first task."
+                    }
+                )
             } else {
                 LazyColumn(
                     contentPadding = PaddingValues(16.dp)
