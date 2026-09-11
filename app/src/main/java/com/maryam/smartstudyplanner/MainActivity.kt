@@ -8,6 +8,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -18,13 +19,17 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.maryam.smartstudyplanner.data.local.datastore.ThemeMode
 import com.maryam.smartstudyplanner.navigation.AppNavGraph
 import com.maryam.smartstudyplanner.navigation.bottomNavItems
+import com.maryam.smartstudyplanner.ui.settings.SettingsViewModel
 import com.maryam.smartstudyplanner.ui.theme.SmartStudyPlannerTheme
 import com.maryam.smartstudyplanner.util.NotificationScheduler
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,24 +47,28 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SmartStudyApp() {
-    SmartStudyPlannerTheme {
+    val settingsViewModel: SettingsViewModel = hiltViewModel()
+    val themeMode by settingsViewModel.themeMode.collectAsState()
+
+    val useDarkTheme = when (themeMode) {
+        ThemeMode.LIGHT -> false
+        ThemeMode.DARK -> true
+        ThemeMode.SYSTEM -> isSystemInDarkTheme()
+    }
+
+    SmartStudyPlannerTheme(darkTheme = useDarkTheme) {
         Surface(modifier = Modifier.fillMaxSize()) {
             val context = LocalContext.current
 
-            // Android 13+ (API 33+) pe notification dikhane se pehle
-            // runtime permission maangna zaroori hai.
             val permissionLauncher = rememberLauncherForActivityResult(
                 contract = ActivityResultContracts.RequestPermission()
-            ) { /* result ignore kar sakte hain, user ka jo bhi decision ho */ }
+            ) { }
 
             LaunchedEffect(Unit) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                 }
                 NotificationScheduler.scheduleDailyReminder(context)
-
-                // TESTING ONLY — is line ko comment/delete kar dena testing ke baad:
-                NotificationScheduler.scheduleImmediateTestRun(context)
             }
 
             val navController = rememberNavController()

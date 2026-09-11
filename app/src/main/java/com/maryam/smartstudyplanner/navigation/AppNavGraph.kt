@@ -12,6 +12,7 @@ import com.maryam.smartstudyplanner.ui.calendar.CalendarScreen
 import com.maryam.smartstudyplanner.ui.goals.GoalsScreen
 import com.maryam.smartstudyplanner.ui.home.HomeScreen
 import com.maryam.smartstudyplanner.ui.progress.ProgressScreen
+import com.maryam.smartstudyplanner.ui.settings.SettingsScreen
 import com.maryam.smartstudyplanner.ui.study.SessionHistoryScreen
 import com.maryam.smartstudyplanner.ui.study.StudySessionScreen
 import com.maryam.smartstudyplanner.ui.subjects.SubjectDetailsScreen
@@ -31,7 +32,8 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
                 onAddTaskClick = { navController.navigate(Screen.AddEditTask.createRoute()) },
                 onTaskClick = { taskId -> navController.navigate(Screen.AddEditTask.createRoute(taskId)) },
                 onStartSessionClick = { navController.navigate(Screen.StudySession.route) },
-                onGoalsClick = { navController.navigate(Screen.Goals.route) }
+                onGoalsClick = { navController.navigate(Screen.Goals.route) },
+                onSettingsClick = { navController.navigate(Screen.Settings.route) }
             )
         }
         composable(Screen.Subjects.route) {
@@ -85,6 +87,9 @@ fun AppNavGraph(navController: NavHostController, modifier: Modifier = Modifier)
         }
         composable(Screen.Goals.route) {
             GoalsScreen(onNavigateBack = { navController.popBackStack() })
+        }
+        composable(Screen.Settings.route) {
+            SettingsScreen(onNavigateBack = { navController.popBackStack() })
         }
     }
 }
