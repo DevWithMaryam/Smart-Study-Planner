@@ -1,7 +1,6 @@
 package com.maryam.smartstudyplanner.ui.tasks
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -27,9 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.maryam.smartstudyplanner.data.local.entity.TaskEntity
@@ -101,7 +98,8 @@ fun TasksScreen(
                             subjectName = subjectNames[task.subjectId] ?: "",
                             onToggleComplete = { viewModel.toggleCompletion(task) },
                             onClick = { onTaskClick(task.taskId) },
-                            onDeleteClick = { taskToDelete = task }
+                            onDeleteClick = { taskToDelete = task },
+                           // modifier = Modifier.animateItem()
                         )
                     }
                 }

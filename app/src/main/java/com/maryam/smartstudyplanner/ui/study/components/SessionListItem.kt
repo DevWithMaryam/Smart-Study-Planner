@@ -14,10 +14,14 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
-fun SessionListItem(session: StudySessionEntity, subjectName: String) {
+fun SessionListItem(
+    session: StudySessionEntity,
+    subjectName: String,
+    modifier: Modifier = Modifier
+) {
     val dateFormat = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault())
 
-    Card(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
+    Card(modifier = modifier.fillMaxWidth().padding(vertical = 4.dp)) {
         Column(modifier = Modifier.fillMaxWidth().padding(12.dp)) {
             Text(subjectName, style = MaterialTheme.typography.titleMedium)
             Text(

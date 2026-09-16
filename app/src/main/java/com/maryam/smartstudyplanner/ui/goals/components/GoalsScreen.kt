@@ -1,7 +1,5 @@
 package com.maryam.smartstudyplanner.ui.goals
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,6 +8,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -23,13 +22,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.maryam.smartstudyplanner.data.local.entity.StudyGoalEntity
 import com.maryam.smartstudyplanner.ui.components.ConfirmDeleteDialog
+import com.maryam.smartstudyplanner.ui.components.EmptyState
 import com.maryam.smartstudyplanner.ui.goals.components.AddEditGoalDialog
 import com.maryam.smartstudyplanner.ui.goals.components.GoalListItem
 
@@ -67,21 +65,16 @@ fun GoalsScreen(
         }
     ) { innerPadding ->
         if (goalsWithProgress.isEmpty()) {
-            Box(
-                modifier = Modifier.fillMaxSize().padding(innerPadding),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "No goals yet. Tap + to set your first study goal.",
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(32.dp)
-                )
-            }
+            EmptyState(
+                icon = Icons.Default.Star,
+                title = "No goals yet",
+                subtitle = "Tap + to set your first study goal.",
+                modifier = Modifier.padding(innerPadding)
+            )
         } else {
             LazyColumn(
                 modifier = Modifier.fillMaxSize().padding(innerPadding),
-                contentPadding = PaddingValues(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                contentPadding = PaddingValues(16.dp)
             ) {
                 items(goalsWithProgress, key = { it.goal.goalId }) { item ->
                     GoalListItem(
@@ -93,7 +86,8 @@ fun GoalsScreen(
                             editingGoal = item.goal
                             showAddEditDialog = true
                         },
-                        onDeleteClick = { goalToDelete = item.goal }
+                        onDeleteClick = { goalToDelete = item.goal },
+                        modifier = Modifier.animateItem()
                     )
                 }
             }
