@@ -169,18 +169,6 @@ com.maryam.smartstudyplanner
 
 ---
 
-## 🚀 Getting Started
-
-```bash
-**[Git clone](https://github.com/DevWithMaryam/Smart-Study-Planner)**
-```
-
-Open the project in **Android Studio**, allow Gradle to sync, and run it on an emulator or physical Android device.
-
-**Minimum SDK:** 26 (Android 8.0+)
-
----
-
 ## 👩‍💻 Author
 
 ### Maryam Akram
