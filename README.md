@@ -4,7 +4,7 @@
 
 ### 🔗 Links
 
-**[▶ Live Demo](https://appetize.io/app/b_pmpdty2sgvds7l25womwfnakoi)**   •   **[GitHub Repository](https://github.com/DevWithMaryam/SmartStudyPlanner)**
+**[▶ Live Demo](https://appetize.io/app/b_pmpdty2sgvds7l25womwfnakoi)**   •   **[GitHub Repository](https://github.com/DevWithMaryam?tab=repositories)**
 
 
 ---
@@ -172,7 +172,7 @@ com.maryam.smartstudyplanner
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/DevWithMaryam/SmartStudyPlanner.git
+**[Git clone](https://github.com/DevWithMaryam/Smart-Study-Planner)**
 ```
 
 Open the project in **Android Studio**, allow Gradle to sync, and run it on an emulator or physical Android device.
@@ -187,8 +187,4 @@ Open the project in **Android Studio**, allow Gradle to sync, and run it on an e
 
 **Android Developer**
 
-[GitHub](https://github.com/DevWithMaryam)   •   [LinkedIn](https://www.linkedin.com/in/maryam-akram-2b183b338/)
-
 ---
-
-⭐ **If you find this project useful, consider giving it a star!**
